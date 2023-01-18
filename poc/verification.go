@@ -2,6 +2,7 @@ package poc
 
 import (
 	"fmt"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/gin-gonic/gin"
 	"github.com/spruceid/siwe-go"
 	"log"
@@ -33,6 +34,7 @@ func siweVerifyMsg(c *gin.Context) {
 		log.Println("siwe parse message", err)
 		return
 	}
+	fmt.Println("message", pmsg)
 	// If requested from domain must check
 	sampleDomain := "localhost:8080"
 	publicKey, err := pmsg.Verify(vmsg.Signature, &sampleDomain, nil, nil)
@@ -40,8 +42,6 @@ func siweVerifyMsg(c *gin.Context) {
 		log.Println("siwe verification error", err)
 		return
 	}
-	fmt.Println(publicKey)
-	// message validate
-	// siwe.Message.Verify() <- method
-	//siwe.Message{}.Verify()
+	address := crypto.PubkeyToAddress(*publicKey)
+	fmt.Println("address", address) // TODO: Match address with your web2
 }
