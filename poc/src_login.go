@@ -25,3 +25,13 @@ func (w WS) WebServerSIWE() WS {
 	login.POST("/verify", siweVerifyMsg)
 	return w
 }
+
+//func (w WS) WebServerSession() WS {
+//	login := w.Conn.Group("/api/session")
+//	login.GET("/login", func(c *gin.Context) {
+//		session := sessions.Default(c)
+//
+//		iu
+//	})
+//	return w
+//}
